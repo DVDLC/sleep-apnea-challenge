@@ -1,0 +1,14 @@
+{
+  "importMap": "./import_map.json",
+  "compilerOptions": {
+    "strict": true,
+    "lib": ["deno.ns", "deno.unstable", "dom"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "tasks": {
+    "start": "deno run --allow-env --allow-net index.ts",
+    "test": "deno test",
+    "lint": "deno lint"
+  }
+}

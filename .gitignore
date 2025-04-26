@@ -1,0 +1,34 @@
+# Deno cache directory
+.deno/
+
+# Deno lock files (optional: if you don't want to commit)
+deno.lock
+
+# Local environment variables
+.env
+.env.local
+.env.*.local
+
+# Supabase auto-generated config
+supabase/.temp/
+supabase/.env
+supabase/migrations/
+
+# Node leftovers (just in case)
+node_modules/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Vscode settings (optional if using workspace settings)
+.vscode/
+
+# Coverage reports (if you run tests)
+coverage/
+
+# IDE-specific
+.idea/
