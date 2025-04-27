@@ -1,5 +1,5 @@
 import { HttpStatus } from "../config/http_status.ts";
-import { CustomException } from "./customExceptions.ts";
+import { CustomException } from "./custom_exceptions.ts";
 import { Level, Logger } from "./logger.ts";
 
 export const serviceErrorHandler = (
