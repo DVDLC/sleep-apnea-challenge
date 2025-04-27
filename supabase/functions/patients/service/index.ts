@@ -1,10 +1,10 @@
+import { InsuranceVerificationList } from "@/interfaces/service.interfaces.ts";
 import { PatientRepository } from "@/repository/index.ts";
 import type { RequestBodyType } from "@/schemas/patient_service_schema.ts";
 import { requestBodySchema } from "@/schemas/patient_service_schema.ts";
 import { HttpStatus } from "@common/config/http_status.ts";
 import { ResponseI } from "@common/interfaces/main_router.ts";
 import { ApiService } from "@common/utils/api_service.ts";
-import { CustomException } from "@common/utils/custom_exceptions.ts";
 import { requestValidator } from "@common/utils/request_validator.ts";
 import { serviceErrorHandler } from "@common/utils/service_error_handler.ts";
 
@@ -36,19 +36,16 @@ export class PatientService implements PatientServiceI {
 
     const patient = await this.patientRepository.findOne(data.email);
 
-    if (!patient) {
-      throw new CustomException(
-        "on error - patient not found",
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-
-    const api_response = await this.insuranceApiService.get(
+    const api_response = await this.insuranceApiService.get<
+      InsuranceVerificationList
+    >(
       "/insurance-users",
-      { id: "d24b39db-7d2c-4e18-81f9-116a9570e240" },
+      { id: data.insurance_id },
     );
 
-    console.log("Api response", api_response);
+    const insurance_verified = api_response[0].verified;
+
+    await this.patientRepository.update(patient.id, { insurance_verified });
 
     return { data, status_code: HttpStatus.NOT_FOUND };
   }

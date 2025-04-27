@@ -1,3 +1,3 @@
-import type { Database } from "./database.types.ts";
+import type { Tables } from "./database.types.ts";
 
-export type PatientModelType = Database["public"]["Tables"]["patients"]["Row"];
+export type PatientModelType = Tables<"patients">;

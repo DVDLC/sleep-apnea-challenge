@@ -20,7 +20,11 @@ export const serviceErrorHandler = (
             if (error instanceof CustomException) {
                 logger
                     .set_message("on error - controlled error")
-                    .set_meta(error)
+                    .set_meta({
+                        name: error.name,
+                        message: error.message,
+                        stack: error.stack,
+                    })
                     .log();
                 return error.toResponse();
             }
