@@ -7,7 +7,7 @@
     "emitDecoratorMetadata": true
   },
   "tasks": {
-    "start": "deno run --allow-env --allow-net index.ts",
+    "start": "deno run --allow-env --allow-read --allow-net index.ts",
     "test": "deno test",
     "lint": "deno lint"
   }
