@@ -1,3 +1,4 @@
+import { AuthService } from "@/service/index.ts";
 import { HttpStatus } from "@common/config/http_status.ts";
 import {
   MainRouter,
@@ -7,19 +8,20 @@ import {
 import { Logger } from "@common/utils/logger.ts";
 
 export class AuthRouter extends MainRouter {
+  authService: AuthService;
   constructor(
     request: Request,
     logger: Logger,
+    authService: AuthService,
   ) {
     super(request, logger);
+    this.authService = authService;
   }
 
   async route(): Promise<ResponseI<Record<string, unknown>>> {
     if (this.method === MethodsE.POST && this.url.includes("/login")) {
-      return {
-        data: { msg: "Hola mundo desde auth" },
-        status_code: 200,
-      };
+      const requestBody = await this.request.json();
+      return await this.authService.login(requestBody);
     }
 
     return {
