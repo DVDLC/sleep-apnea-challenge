@@ -1,5 +1,5 @@
 import { HttpStatus } from "../config/http_status.ts";
-import { CustomException } from "./customExceptions.ts";
+import { CustomException } from "./custom_exceptions.ts";
 import { Level, Logger } from "./logger.ts";
 
 export const serviceErrorHandler = (
@@ -20,7 +20,11 @@ export const serviceErrorHandler = (
             if (error instanceof CustomException) {
                 logger
                     .set_message("on error - controlled error")
-                    .set_meta(error)
+                    .set_meta({
+                        name: error.name,
+                        message: error.message,
+                        stack: error.stack,
+                    })
                     .log();
                 return error.toResponse();
             }
