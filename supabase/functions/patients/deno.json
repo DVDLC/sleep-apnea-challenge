@@ -1,5 +1,9 @@
 {
-  "importMap": "./import_map.json",
+  "imports": {
+    "@/": "./",
+    "@common/": "../common/",
+    "zod": "https://deno.land/x/zod@v3.22.2/mod.ts"
+  },
   "compilerOptions": {
     "strict": true,
     "lib": ["deno.ns", "deno.unstable", "dom"],

@@ -1,9 +1,13 @@
-import { config } from "../deps.ts";
-
-const cfg = config();
+const isProd = Deno.env.get("SUPABASE_URL") !== undefined;
 
 export const env = {
-    INSURANCE_API: cfg.INSURANCE_API ?? "",
-    SUPABASE_PROJECT_URL: cfg.SUPABASE_PROJECT_URL ?? "",
-    SUPABASE_API_KEY: cfg.SUPABASE_API_KEY ?? "",
+    SUPABASE_PROJECT_URL: isProd
+        ? Deno.env.get("SUPABASE_URL")!
+        : Deno.env.get("SUPABASE_PROJECT_URL")!,
+
+    SUPABASE_API_KEY: isProd
+        ? Deno.env.get("SUPABASE_ANON_KEY")!
+        : Deno.env.get("SUPABASE_API_KEY")!,
+
+    INSURANCE_API: Deno.env.get("INSURANCE_API")!,
 };
