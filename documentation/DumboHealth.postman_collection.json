@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "e1b003cf-8229-468a-bf4c-0801a384f31f",
+		"name": "DumboHealth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43256247"
+	},
+	"item": [
+		{
+			"name": "patient-verify",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"dm@dumbo.health\",\n    \"insurance_id\": \"3eae6243-dc23-4b6c-b561-16b6e2822b8f\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{lambda_patients_url}}/functions/v1/patients/verify",
+					"host": [
+						"{{lambda_patients_url}}"
+					],
+					"path": [
+						"functions",
+						"v1",
+						"patients",
+						"verify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PostRes\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.collectionVariables.set(\"auth_access_token\", (jsonData.session.access_token));",
+							"",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"staff@example.com\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{lambda_login_url}}/functions/v1/auth/login",
+					"host": [
+						"{{lambda_login_url}}"
+					],
+					"path": [
+						"functions",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "auth_access_token",
+			"value": ""
+		}
+	]
+}
